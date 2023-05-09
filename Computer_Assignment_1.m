@@ -4,7 +4,7 @@ clc;
 %% 1.1 Data Generation
 
 [v_m,fs] = audioread("in-the-air.wav");
-sound(v_m,fs);
+% sound(v_m,fs);
 
 T_s = 1/fs;
 N = length(v_m);
@@ -28,9 +28,9 @@ xlabel("f");
 
 % 1.1.2 evaluation of the bandwidth
 
-bw_v =find( V_m > 0.1*max(V_m) );
-bw = max(bw_v / (length(f)/2))*10^4;
-% bw = 0.7*10^4;
+% bw_v =find( V_m > 0.1*max(V_m) );
+% bw = max(bw_v / (length(f)/2))*10^4;
+bw = 1.1*10^4;
 %% 1.2 Modulator
 fc = 15*10^3;  % carrier frequency
 k_AM = 0.02;  % modulation index
@@ -52,6 +52,7 @@ z = (sqrt(N_0/2)*randn(1,N)).';
 x_r = v_AM + z;
 X_r = fftshift(fft(x_r))/sqrt(N);
 
+% 1.3.2
 figure;
 subplot(2,1,1);
 plot(t,x_r);
@@ -100,6 +101,7 @@ plot(t,v_m);
 ylabel("v_m(t) and x_d(t)");
 xlabel("t");
 legend('x_d(t)','v_m(t)');
+grid on;
 
 subplot(2,1,2);
 plot(f,X_d);
@@ -114,8 +116,8 @@ legend('X_d(f)','V_m(f)');
 
 correlation(1) = xcorr(x_d,v_m,0,'coeff'); %1.4.4
 
-%% 1.5
-% 1.5.1 - Repeat items 1.3 and 1.4, this time choosing N_0=0.02
+%% 1.5.1
+% Repeat items 1.3 and 1.4, this time choosing N_0=0.02
 
 % 1.3 Channel
 N_0 = 0.02;
@@ -171,6 +173,7 @@ plot(t,v_m);
 ylabel("v_m(t) and x_d(t)");
 xlabel("t");
 legend('x_d(t)','v_m(t)');
+grid on;
 
 subplot(2,1,2);
 plot(f,X_d);
@@ -181,7 +184,7 @@ ylabel("V_m(f) and X_d(f)");
 xlabel("f");
 legend('X_d(f)','V_m(f)');
 
-sound(x_d,fs); %1.4.3
+% sound(x_d,fs); %1.4.3
 
 correlation(2) = xcorr(x_d,v_m,0,'coeff'); %1.4.4
 
@@ -458,6 +461,7 @@ plot(t,v_m);
 ylabel("v_m(t) and x_d(t)");
 xlabel("t");
 legend('x_d(t)','v_m(t)');
+grid on;
 
 subplot(2,1,2);
 plot(f,X_d);
